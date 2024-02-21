@@ -1,3 +1,4 @@
+import { JOBTYPES } from "@/constants";
 import { z } from "zod";
 
 const postJobSchema = z.object({
@@ -5,7 +6,7 @@ const postJobSchema = z.object({
     .string({ required_error: "Title is required" })
     .min(3, "Title must be at least 3 characters")
     .max(255, "Title is too long"),
-  jobType: z.enum(["Full-Time", "Part-Time", "Remote", "Internship"], {
+  jobType: z.enum(JOBTYPES, {
     required_error: "You need to select a job type",
   }),
   salaryFrom: z.string({ required_error: "Salary from is required" }),
