@@ -75,8 +75,9 @@ export const Sidebar = (props: Props) => {
               key={menu.name}
               variant={"ghost"}
               className={`w-full justify-start gap-x-2 rounded-none ${
-                menu.name === "Logout" &&
-                "text-red-500 hover:bg-red-100 hover:text-red-500"
+                menu.name === "Logout"
+                  ? "text-red-500 hover:bg-red-100 hover:text-red-500"
+                  : "hover:text-primary"
               } `}
             >
               <menu.icon className="text-lg" />
