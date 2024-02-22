@@ -1,4 +1,5 @@
 "use client";
+import CKEditor from "@/components/oraganisms/CKEditor";
 import { FieldInput } from "@/components/oraganisms/FieldInput";
 import InputSkill from "@/components/oraganisms/InputSkill";
 import {
@@ -29,6 +30,7 @@ import { useForm } from "react-hook-form";
 import { FiArrowLeft } from "react-icons/fi";
 import { z } from "zod";
 export default function PostJobPage() {
+  const [editorloaded, setEditorloaded] = React.useState<boolean>(false);
   const form = useForm<z.infer<typeof postJobSchema>>({
     resolver: zodResolver(postJobSchema),
     defaultValues: {
@@ -39,6 +41,10 @@ export default function PostJobPage() {
   const onSubmit = (values: z.infer<typeof postJobSchema>) => {
     console.log(values);
   };
+
+  React.useEffect(() => {
+    setEditorloaded(true);
+  }, []);
 
   return (
     <div>
@@ -190,6 +196,44 @@ export default function PostJobPage() {
             subtitle="Add required skills for the job"
           >
             <InputSkill form={form} />
+          </FieldInput>
+
+          <FieldInput title="Job Description" subtitle="Describe your job">
+            <CKEditor
+              form={form}
+              name="jobDescription"
+              editorloaded={editorloaded}
+            />
+          </FieldInput>
+          <FieldInput
+            title="Responsibilities"
+            subtitle="Outline the core responsibilities of the possible candidates"
+          >
+            <CKEditor
+              form={form}
+              name="responsibility"
+              editorloaded={editorloaded}
+            />
+          </FieldInput>
+          <FieldInput
+            title="Who you are"
+            subtitle="Add your preferred candidates qualifications"
+          >
+            <CKEditor
+              form={form}
+              name="whoYouAre"
+              editorloaded={editorloaded}
+            />
+          </FieldInput>
+          <FieldInput
+            title="Nice-To-Have"
+            subtitle="Add niceto-have qualifications for the role to encourage a more diverse set of candidates to apply"
+          >
+            <CKEditor
+              form={form}
+              name="niceToHave"
+              editorloaded={editorloaded}
+            />
           </FieldInput>
         </form>
       </Form>
