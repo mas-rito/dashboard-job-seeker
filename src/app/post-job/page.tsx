@@ -28,8 +28,7 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { FiArrowLeft } from "react-icons/fi";
 import { z } from "zod";
-type Props = {};
-const PostJobPage = (props: Props) => {
+export default function PostJobPage() {
   const form = useForm<z.infer<typeof postJobSchema>>({
     resolver: zodResolver(postJobSchema),
     defaultValues: {
@@ -196,6 +195,4 @@ const PostJobPage = (props: Props) => {
       </Form>
     </div>
   );
-};
-
-export default PostJobPage;
+}
