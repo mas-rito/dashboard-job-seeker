@@ -1,5 +1,6 @@
 "use client";
 import { FieldInput } from "@/components/oraganisms/FieldInput";
+import InputSkill from "@/components/oraganisms/InputSkill";
 import {
   Form,
   FormControl,
@@ -183,6 +184,13 @@ const PostJobPage = (props: Props) => {
                 </FormItem>
               )}
             />
+          </FieldInput>
+
+          <FieldInput
+            title="Required Skills"
+            subtitle="Add required skills for the job"
+          >
+            <InputSkill form={form} />
           </FieldInput>
         </form>
       </Form>
