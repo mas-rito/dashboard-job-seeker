@@ -23,11 +23,13 @@ export default function RootLayout({
     <html lang="en">
       <body className={poppins.className}>
         <main className="bg-background">
-          <div className="flex flex-row">
-            <div className="hidden lg:block w-[18%]">
-              <Sidebar />
+          <div className="grid grid-cols-5">
+            <div className="hidden lg:block col-span-1">
+              <div className="sticky top-0">
+                <Sidebar />
+              </div>
             </div>
-            <div className="col-span-3 overflow-auto lg:col-span-5 lg:border-l w-[82%]">
+            <div className="overflow-auto col-span-5 lg:col-span-4 lg:border-l">
               <div className="px-6 py-6 lg:px-8">
                 <Header />
                 {children}

@@ -1,7 +1,9 @@
 "use client";
 import CKEditor from "@/components/oraganisms/CKEditor";
 import { FieldInput } from "@/components/oraganisms/FieldInput";
+import InputBenefits from "@/components/oraganisms/InputBenefits";
 import InputSkill from "@/components/oraganisms/InputSkill";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -76,7 +78,7 @@ export default function PostJobPage() {
                 <FormItem>
                   <FormControl>
                     <Input
-                      className="w-4/5"
+                      className="w-full md:w-4/5"
                       placeholder="e.g. Software Engineer"
                       {...field}
                     />
@@ -171,7 +173,7 @@ export default function PostJobPage() {
                     defaultValue={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger className="w-4/5">
+                      <SelectTrigger className="w-full md:w-4/5">
                         <SelectValue placeholder="Select Job Category" />
                       </SelectTrigger>
                     </FormControl>
@@ -235,6 +237,17 @@ export default function PostJobPage() {
               editorloaded={editorloaded}
             />
           </FieldInput>
+
+          <FieldInput
+            title="Perks and Benefits"
+            subtitle="Encourage more people to apply by sharing the attractive rewards and benefits you offer you offer your employees"
+          >
+            <InputBenefits form={form} />
+          </FieldInput>
+
+          <div className="flex justify-end">
+            <Button>Do a Review</Button>
+          </div>
         </form>
       </Form>
     </div>
