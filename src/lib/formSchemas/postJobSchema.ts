@@ -17,20 +17,20 @@ const postJobSchema = z.object({
   }),
   jobDescription: z
     .string({ required_error: "Job description is required" })
-    .min(20, "Job description must be at least 20 characters")
-    .max(500, "Job description is too long"),
+    .min(20, "Input must be at least 20 characters")
+    .max(500, "Input is too long"),
   responsibility: z
     .string({ required_error: "Job description is required" })
-    .min(20, "Job description must be at least 20 characters")
-    .max(500, "Job description is too long"),
+    .min(20, "Input must be at least 20 characters")
+    .max(500, "Input is too long"),
   whoYouAre: z
     .string({ required_error: "Job description is required" })
-    .min(20, "Job description must be at least 20 characters")
-    .max(500, "Job description is too long"),
+    .min(20, "Input must be at least 20 characters")
+    .max(500, "Input is too long"),
   niceToHave: z
     .string({ required_error: "Job description is required" })
-    .min(20, "Job description must be at least 20 characters")
-    .max(500, "Job description is too long"),
+    .min(20, "Input must be at least 20 characters")
+    .max(500, "Input is too long"),
   benefits: z
     .object({
       benefit: z.string(),

@@ -16,6 +16,7 @@ const InputBenefits = ({ form }: Props) => {
   const updateBenefits = (items: BenefitType) => {
     // Variabel untuk menampung semua benefits baik yang lama dan yang terbaru
     const newValue: [BenefitType, ...BenefitType[]] = [items, ...benefits];
+
     // Mengeset variable yang menampung benefits ke state
     setBenefits(newValue);
     // mengirmkan variable benefits ke input form yang bernama benefits

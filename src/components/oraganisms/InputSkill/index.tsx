@@ -6,6 +6,7 @@ import {
   FormField,
   FormItem,
   FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import postJobSchema from "@/lib/formSchemas/postJobSchema";
@@ -60,7 +61,6 @@ const InputSkill = ({ form }: Props) => {
       name="requiredSkills"
       render={({ field }) => (
         <FormItem>
-          <FormLabel className="block">Add skills</FormLabel>
           <FormControl>
             <>
               <Button
@@ -96,6 +96,7 @@ const InputSkill = ({ form }: Props) => {
               </div>
             </>
           </FormControl>
+          <FormMessage />
         </FormItem>
       )}
     />
