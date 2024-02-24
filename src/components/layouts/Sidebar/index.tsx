@@ -9,6 +9,7 @@ import { LuBuilding, LuNewspaper } from "react-icons/lu";
 import { MdLogout, MdOutlineDateRange } from "react-icons/md";
 type Props = {};
 export const Sidebar = (props: Props) => {
+  // const pathname = window.location.pathname;
   const router = useRouter();
   const dashboardMenus = [
     {

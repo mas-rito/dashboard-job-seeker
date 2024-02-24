@@ -3,7 +3,6 @@ import * as React from "react";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableHead,
   TableHeader,
@@ -12,15 +11,14 @@ import {
 import { JOB_LISTINGS_COLUMNS, JOB_LISTINGS_DATA } from "@/constants";
 import jobListingType from "@/types/jobListing";
 import { Badge } from "@/components/ui/badge";
-import { HiDotsVertical } from "react-icons/hi";
-import { Button } from "@/components/ui/button";
+import { FaEye } from "react-icons/fa6";
+import Link from "next/link";
 
 type Props = {};
 export default function JobListings({}: Props) {
   return (
     <div>
       <h1 className="text-3xl font-semibold">Job Listings</h1>
-
       <div className="mt-10">
         <Table>
           <TableHeader>
@@ -48,9 +46,12 @@ export default function JobListings({}: Props) {
                   {item.applicants}/{item.needs}
                 </TableCell>
                 <TableCell>
-                  <Button variant="outline">
-                    <HiDotsVertical />
-                  </Button>
+                  <Link
+                    href={`/job-listings/${item.id}`}
+                    className="block w-fit p-2 rounded border border-border hover:bg-muted transition-colors"
+                  >
+                    <FaEye className="text-xl" />
+                  </Link>
                 </TableCell>
               </TableRow>
             ))}
