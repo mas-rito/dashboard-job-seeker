@@ -1,5 +1,6 @@
-// @flow
+"use client";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 import * as React from "react";
 import { FiHome } from "react-icons/fi";
 import { GoGear } from "react-icons/go";
@@ -8,6 +9,7 @@ import { LuBuilding, LuNewspaper } from "react-icons/lu";
 import { MdLogout, MdOutlineDateRange } from "react-icons/md";
 type Props = {};
 export const Sidebar = (props: Props) => {
+  const router = useRouter();
   const dashboardMenus = [
     {
       name: "Home",
@@ -25,9 +27,9 @@ export const Sidebar = (props: Props) => {
       href: "/company-profile",
     },
     {
-      name: "Job Listing",
+      name: "Job Listings",
       icon: LuNewspaper,
-      href: "/job-listing",
+      href: "/job-listings",
     },
     {
       name: "My Schedule",
@@ -59,6 +61,7 @@ export const Sidebar = (props: Props) => {
                 key={menu.name}
                 variant={"ghost"}
                 className="w-full justify-start gap-x-2 rounded-none hover:text-primary"
+                onClick={() => router.push(menu.href)}
               >
                 <menu.icon className="text-lg" />
                 {menu.name}

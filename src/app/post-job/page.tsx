@@ -246,7 +246,7 @@ export default function PostJobPage() {
           </FieldInput>
 
           <div className="flex justify-end">
-            <Button>Do a Review</Button>
+            <Button size="lg">Do a Review</Button>
           </div>
         </form>
       </Form>

@@ -56,7 +56,7 @@ const InputBenefits = ({ form }: Props) => {
       <FormField
         control={form.control}
         name="benefits"
-        render={() => (
+        render={({ field }) => (
           <FormItem>
             <FormMessage />
           </FormItem>

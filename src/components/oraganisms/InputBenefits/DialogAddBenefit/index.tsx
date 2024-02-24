@@ -81,7 +81,7 @@ const DialogAddBenefit = ({ updateBenefits }: Props) => {
           </div>
         </div>
         <DialogFooter>
-          <Button type="submit" variant="outline" onClick={handleSaveBenefit}>
+          <Button type="button" variant="outline" onClick={handleSaveBenefit}>
             Save
           </Button>
         </DialogFooter>
