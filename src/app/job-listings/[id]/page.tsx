@@ -5,6 +5,7 @@ import { FiArrowLeft } from "react-icons/fi";
 import { GoDot } from "react-icons/go";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Applicants from "@/components/oraganisms/Applicants";
+import { JobDetail } from "@/components/oraganisms/JobDetail";
 type Props = {};
 export default function JobListingDetail({}: Props) {
   return (
@@ -32,7 +33,9 @@ export default function JobListingDetail({}: Props) {
         <TabsContent value="applicants">
           <Applicants />
         </TabsContent>
-        <TabsContent value="jobdetails">Change your password here.</TabsContent>
+        <TabsContent value="jobdetails" style={{ scrollbarGutter: "stable" }}>
+          <JobDetail />
+        </TabsContent>
       </Tabs>
     </div>
   );
