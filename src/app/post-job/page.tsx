@@ -1,4 +1,5 @@
 "use client";
+import { TitleForm } from "@/components/atoms/TitleForm";
 import CKEditor from "@/components/oraganisms/CKEditor";
 import { FieldInput } from "@/components/oraganisms/FieldInput";
 import InputBenefits from "@/components/oraganisms/InputBenefits";
@@ -59,8 +60,10 @@ export default function PostJobPage() {
       </Link>
 
       <div className="my-5">
-        <h2 className="text-xl font-semibold">Basic Information</h2>
-        <p className="text-gray-400">List out your yop perks and benefits.</p>
+        <TitleForm
+          title="Basic Information"
+          subtitle="List out your yop perks and benefits."
+        />
       </div>
 
       <Separator />

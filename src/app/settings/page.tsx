@@ -1,4 +1,5 @@
 // @flow
+import Overview from "@/components/forms/Overview";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import * as React from "react";
 type Props = {};
@@ -13,9 +14,7 @@ export default function Settings(props: Props) {
           <TabsTrigger value="teams">Teams</TabsTrigger>
         </TabsList>
         <TabsContent value="overview">
-          <div>
-            <h1>Overview</h1>
-          </div>
+          <Overview />
         </TabsContent>
         <TabsContent value="socialLinks">
           <div>
