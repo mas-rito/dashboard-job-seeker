@@ -33,7 +33,7 @@ export default function JobListingDetail({}: Props) {
         <TabsContent value="applicants">
           <Applicants />
         </TabsContent>
-        <TabsContent value="jobdetails" style={{ scrollbarGutter: "stable" }}>
+        <TabsContent value="jobdetails">
           <JobDetail />
         </TabsContent>
       </Tabs>
