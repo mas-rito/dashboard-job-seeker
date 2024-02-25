@@ -200,7 +200,7 @@ export default function PostJobPage() {
             title="Required Skills"
             subtitle="Add required skills for the job"
           >
-            <InputSkill form={form} />
+            <InputSkill form={form} name="requiredSkills" label="Add Skill" />
           </FieldInput>
 
           <FieldInput title="Job Description" subtitle="Describe your job">

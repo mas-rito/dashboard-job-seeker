@@ -9,17 +9,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import postJobSchema from "@/lib/formSchemas/postJobSchema";
-import { zodResolver } from "@hookform/resolvers/zod";
 import * as React from "react";
-import { UseFormReturn, useForm } from "react-hook-form";
 import { FiPlus } from "react-icons/fi";
 import { IoClose } from "react-icons/io5";
-import { z } from "zod";
 type Props = {
-  form: UseFormReturn<z.infer<typeof postJobSchema>>;
+  form: any;
+  name: any;
+  label: string;
 };
-const InputSkill = ({ form }: Props) => {
+const InputSkill = ({ form, name, label }: Props) => {
   const [isHiden, setIsHidden] = React.useState<boolean>(false);
   const [values, setValues] = React.useState<string[]>([]);
   const inputRef = React.useRef<HTMLInputElement>(null);
@@ -38,7 +36,7 @@ const InputSkill = ({ form }: Props) => {
     setValues(newValue);
 
     // Mengeset value ke form
-    form.setValue("requiredSkills", newValue);
+    form.setValue(name, newValue);
 
     // Mereset input
     inputRef.current.value = "";
@@ -52,15 +50,16 @@ const InputSkill = ({ form }: Props) => {
     setValues(newValue);
 
     // Mengeset value ke form
-    form.setValue("requiredSkills", newValue);
+    form.setValue(name, newValue);
   };
 
   return (
     <FormField
       control={form.control}
-      name="requiredSkills"
+      name={name}
       render={({ field }) => (
         <FormItem>
+          <FormLabel className="block">{label}</FormLabel>
           <FormControl>
             <>
               <Button
@@ -70,7 +69,7 @@ const InputSkill = ({ form }: Props) => {
                 onClick={() => setIsHidden(!isHiden)}
               >
                 <FiPlus className="text-xl" />
-                Add skill
+                {label}
               </Button>
               {isHiden && (
                 <div className="my-4 flex flex-row gap-x-4">

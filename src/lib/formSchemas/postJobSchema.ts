@@ -32,10 +32,13 @@ const postJobSchema = z.object({
     .min(20, "Input must be at least 20 characters")
     .max(500, "Input is too long"),
   benefits: z
-    .object({
-      benefit: z.string(),
-      description: z.string(),
-    })
+    .object(
+      {
+        benefit: z.string(),
+        description: z.string(),
+      },
+      { required_error: "Benefits is required" }
+    )
     .array()
     .nonempty({
       message: "At least one benefit is required",

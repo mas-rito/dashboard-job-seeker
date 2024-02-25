@@ -1,13 +1,12 @@
 // @flow
 import postJobSchema from "@/lib/formSchemas/postJobSchema";
 import * as React from "react";
-import { UseFormReturn } from "react-hook-form";
 import { z } from "zod";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { FormField, FormItem, FormMessage } from "@/components/ui/form";
 
 type Props = {
-  form: UseFormReturn<z.infer<typeof postJobSchema>>;
+  form: any;
   name: string;
   editorloaded?: boolean;
 };
