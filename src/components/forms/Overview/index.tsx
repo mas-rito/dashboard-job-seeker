@@ -54,7 +54,7 @@ export default function Overview(props: Props) {
   };
 
   return (
-    <div className="pb-10">
+    <div>
       <div className="my-5">
         <TitleForm
           title="Basic Information"
