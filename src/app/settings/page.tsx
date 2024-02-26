@@ -1,6 +1,7 @@
 // @flow
 import Overview from "@/components/forms/Overview";
 import SocialLinks from "@/components/forms/SocialLinks";
+import { Teams } from "@/components/forms/Teams";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import * as React from "react";
 type Props = {};
@@ -21,9 +22,7 @@ export default function Settings(props: Props) {
           <SocialLinks />
         </TabsContent>
         <TabsContent value="teams">
-          <div>
-            <h1>Teams</h1>
-          </div>
+          <Teams />
         </TabsContent>
       </Tabs>
     </div>
