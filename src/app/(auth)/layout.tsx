@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
-import "./globals.css";
+import "../globals.css";
 import { Sidebar } from "@/components/layouts/Sidebar";
 import { Header } from "@/components/layouts/Header";
 
@@ -22,21 +22,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <main className="bg-background">
-          <div className="grid grid-cols-5">
-            <div className="hidden lg:block col-span-1">
-              <div className="sticky top-0">
-                <Sidebar />
-              </div>
-            </div>
-            <div className="overflow-auto col-span-5 lg:col-span-4 lg:border-l">
-              <div className="px-6 py-6 lg:px-8">
-                <Header />
-                {children}
-              </div>
-            </div>
-          </div>
-        </main>
+        <main className="bg-background">{children}</main>
       </body>
     </html>
   );
