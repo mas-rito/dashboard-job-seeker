@@ -22,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <main className="bg-background">{children}</main>
+        <main className="h-screen flex flex-col justify-center items-center bg-gradient-to-r from-primary">
+          {children}
+        </main>
       </body>
     </html>
   );
