@@ -141,7 +141,7 @@ export default function Overview(props: Props) {
               <div className="w-full md:w-4/5 grid grid-cols-2 gap-4">
                 <FormField
                   control={form.control}
-                  name="location"
+                  name="employee"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Employee</FormLabel>
@@ -168,17 +168,17 @@ export default function Overview(props: Props) {
                 />
                 <FormField
                   control={form.control}
-                  name="location"
+                  name="industry"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Location</FormLabel>
+                      <FormLabel>Industry</FormLabel>
                       <Select
                         onValueChange={field.onChange}
                         defaultValue={field.value}
                       >
                         <FormControl>
                           <SelectTrigger>
-                            <SelectValue placeholder="Select company location" />
+                            <SelectValue placeholder="Select company industry" />
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
@@ -197,7 +197,7 @@ export default function Overview(props: Props) {
 
               <FormField
                 control={form.control}
-                name="detaFound"
+                name="dateFound"
                 render={({ field }) => (
                   <FormItem className="flex flex-col">
                     <FormLabel>Date of Found</FormLabel>

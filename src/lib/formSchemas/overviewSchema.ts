@@ -15,7 +15,7 @@ const overviewSchema = z.object({
   location: z.string({ required_error: "Location is required" }),
   employee: z.string({ required_error: "Employee is required" }),
   industry: z.string({ required_error: "Industry is required" }),
-  detaFound: z.date({ required_error: "Date is required" }),
+  dateFound: z.date({ required_error: "Date is required" }),
   techStack: z
     .string({ required_error: "Tech stack is required" })
     .array()
