@@ -16,15 +16,37 @@ import Link from "next/link";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { signIn } from "next-auth/react";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
+
 type Props = {};
 export default function SignIn({}: Props) {
   const form = useForm<z.infer<typeof signInSchema>>({
     resolver: zodResolver(signInSchema),
   });
 
-  const handleSubmit = (data: z.infer<typeof signInSchema>) => {
-    console.log(data);
+  const { toast } = useToast();
+  const router = useRouter();
+
+  const handleSubmit = async (data: z.infer<typeof signInSchema>) => {
+    const authenticated = await signIn("credentials", {
+      ...data,
+      redirect: false,
+    });
+
+    if (authenticated?.error) {
+      toast({
+        title: "Error",
+        description: "Email or password may be incorrect",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    await router.push("/");
   };
+
   return (
     <div className="p-6 bg-slate-50 shadow-md rounded">
       <Form {...form}>

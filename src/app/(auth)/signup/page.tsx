@@ -10,9 +10,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/components/ui/use-toast";
 import { signUpSchema } from "@/lib/formSchemas/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -21,9 +23,39 @@ export default function SignUp({}: Props) {
   const form = useForm<z.infer<typeof signUpSchema>>({
     resolver: zodResolver(signUpSchema),
   });
+  const { toast } = useToast();
+  const router = useRouter();
 
-  const handleSubmit = (data: z.infer<typeof signUpSchema>) => {
-    console.log(data);
+  const handleSubmit = async (data: z.infer<typeof signUpSchema>) => {
+    await fetch("/api/company/new-user", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+    })
+      .then((res) => {
+        if (res.ok) {
+          toast({
+            title: "Success",
+            description: "Account created successfully",
+          });
+          form.reset();
+          router.push("/signin");
+        } else {
+          toast({
+            title: "Error",
+            description: "Something went wrong",
+            variant: "destructive",
+          });
+        }
+      })
+      .catch((error) => {
+        toast({
+          title: "Error",
+          description: "Something went wrong",
+          variant: "destructive",
+        });
+        console.log(error);
+      });
   };
   return (
     <div className="p-6 bg-slate-50 shadow-md rounded">
