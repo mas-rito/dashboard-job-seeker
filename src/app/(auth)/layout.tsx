@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
 import "../globals.css";
-import { Sidebar } from "@/components/layouts/Sidebar";
-import { Header } from "@/components/layouts/Header";
 import { Toaster } from "@/components/ui/toaster";
 import { getServerSession } from "next-auth";
 import authOptions from "@/lib/authOptions";
@@ -23,11 +21,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const session = await getServerSession(authOptions);
+  const session = await getServerSession(authOptions);
 
-  // if (session !== null) {
-  //   return redirect("/");
-  // }
+  if (session !== null) {
+    return redirect("/");
+  }
 
   return (
     <html lang="en">

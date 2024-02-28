@@ -1,5 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
+import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import * as React from "react";
 import { FiHome } from "react-icons/fi";
@@ -74,6 +75,7 @@ export const Sidebar = (props: Props) => {
             variant={"ghost"}
             className="w-full justify-start gap-x-2 rounded-none
                 text-red-500 hover:bg-red-100 hover:text-red-500"
+            onClick={() => signOut()}
           >
             <MdLogout className="text-lg" />
             Logout
