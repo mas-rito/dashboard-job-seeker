@@ -34,17 +34,12 @@ export default function SignUp({}: Props) {
     })
       .then((res) => {
         if (res.ok) {
-          toast({
-            title: "Success",
-            description: "Account created successfully",
-          });
           form.reset();
           router.push("/signin");
         } else {
-          toast({
-            title: "Error",
-            description: "Something went wrong",
-            variant: "destructive",
+          form.setError("email", {
+            type: "custom",
+            message: "Email already exists",
           });
         }
       })
@@ -54,7 +49,6 @@ export default function SignUp({}: Props) {
           description: "Something went wrong",
           variant: "destructive",
         });
-        console.log(error);
       });
   };
   return (

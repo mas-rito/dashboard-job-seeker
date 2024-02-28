@@ -16,8 +16,6 @@ export async function POST(request: Request) {
       },
     })
     .then((company) => {
-      console.log(company);
-
       return NextResponse.json(company);
     })
     .catch((error) => {
