@@ -32,7 +32,21 @@ import * as React from "react";
 import { useForm } from "react-hook-form";
 import { FiArrowLeft } from "react-icons/fi";
 import { z } from "zod";
+import useSWR from "swr";
+import { fetcher } from "@/lib/utils";
+import { CategoryJob } from "@prisma/client";
+import moment from "moment";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useToast } from "@/components/ui/use-toast";
 export default function PostJobPage() {
+  const { data: session } = useSession();
+  const router = useRouter();
+  const { toast } = useToast();
+  const { data, error, isLoading } = useSWR<CategoryJob>(
+    "api/job/categories",
+    fetcher
+  );
   const [editorloaded, setEditorloaded] = React.useState<boolean>(false);
   const form = useForm<z.infer<typeof postJobSchema>>({
     resolver: zodResolver(postJobSchema),
@@ -41,8 +55,54 @@ export default function PostJobPage() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof postJobSchema>) => {
-    console.log(values);
+  const handleSubmit = async (values: z.infer<typeof postJobSchema>) => {
+    try {
+      const body = {
+        roles: values.roles,
+        jobType: values.jobType,
+        applicants: 0,
+        needs: 20,
+        benefits: values.benefits,
+        salaryFrom: values.salaryFrom,
+        salaryTo: values.salaryTo,
+        description: values.jobDescription,
+        requiredSkills: values.requiredSkills,
+        categoryId: values.categoryId,
+        responsibility: values.responsibility,
+        whoYouAre: values.whoYouAre,
+        niceToHave: values.niceToHave,
+        datePosted: moment().toDate(),
+        dueDate: moment().add(30, "days").toDate(),
+        companyId: session?.user.id,
+      };
+
+      await fetch("/api/job", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(body),
+      }).then((res) => {
+        if (res.ok) {
+          router.push("/job-listings");
+          toast({
+            title: "Success",
+            description: "Job created successfully",
+          });
+        } else {
+          toast({
+            title: "Error",
+            description: "Something went wrong, please try again",
+            variant: "destructive",
+          });
+        }
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong, please try again",
+        variant: "destructive",
+      });
+      console.log(error);
+    }
   };
 
   React.useEffect(() => {
@@ -70,7 +130,7 @@ export default function PostJobPage() {
 
       <Form {...form}>
         <form
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(handleSubmit)}
           className="mt-6 space-y-6 pt-6"
         >
           <FieldInput title="Job Title" subtitle="Enter your job title">
@@ -181,13 +241,11 @@ export default function PostJobPage() {
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="m@example.com">
-                        m@example.com
-                      </SelectItem>
-                      <SelectItem value="m@google.com">m@google.com</SelectItem>
-                      <SelectItem value="m@support.com">
-                        m@support.com
-                      </SelectItem>
+                      {data?.map((item: CategoryJob) => (
+                        <SelectItem key={item.id} value={item.id}>
+                          {item.name}
+                        </SelectItem>
+                      ))}
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -249,7 +307,9 @@ export default function PostJobPage() {
           </FieldInput>
 
           <div className="flex justify-end">
-            <Button size="lg">Do a Review</Button>
+            <Button type="submit" size="lg">
+              Do a Review
+            </Button>
           </div>
         </form>
       </Form>

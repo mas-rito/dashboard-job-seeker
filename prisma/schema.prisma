@@ -81,7 +81,7 @@ model Job {
   salaryTo       String
   requiredSkills String[]
   description    String
-  responbility   String
+  responsibility String
   whoYouAre      String
   niceToHave     String
   benefits       Json
