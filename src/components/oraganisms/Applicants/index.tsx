@@ -8,13 +8,20 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { JOB_APPLICANTS_COLUMNS, JOB_APPLICANTS_DATA } from "@/constants";
-import jobApplicantType from "@/types/jobApplicants";
+import { JOB_APPLICANTS_COLUMNS } from "@/constants";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { Button } from "@/components/ui/button";
+import { Applicant, User } from "@prisma/client";
 
-type Props = {};
-export default function Applicants(props: Props) {
+type Props = {
+  applicants: Applicant[] | undefined;
+};
+
+type ItemType = {
+  User?: User;
+} & Applicant;
+
+export default function Applicants({ applicants }: Props) {
   return (
     <Table>
       <TableHeader>
@@ -26,17 +33,27 @@ export default function Applicants(props: Props) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {JOB_APPLICANTS_DATA.map((item: jobApplicantType) => (
-          <TableRow key={item.id}>
-            <TableCell>{item.name}</TableCell>
-            <TableCell>{item.dateApplied}</TableCell>
-            <TableCell className="text-center">
-              <Button size="icon" variant="outline">
-                <BsThreeDotsVertical />
-              </Button>
+        {applicants?.length === 0 ? (
+          <TableRow>
+            <TableCell
+              colSpan={JOB_APPLICANTS_COLUMNS.length + 1}
+              className="text-center"
+            >
+              No data
             </TableCell>
           </TableRow>
-        ))}
+        ) : (
+          applicants?.map((item: ItemType) => (
+            <TableRow key={item.id}>
+              <TableCell>{item.User?.name}</TableCell>
+              <TableCell className="text-center">
+                <Button size="icon" variant="outline">
+                  <BsThreeDotsVertical />
+                </Button>
+              </TableCell>
+            </TableRow>
+          ))
+        )}
       </TableBody>
     </Table>
   );

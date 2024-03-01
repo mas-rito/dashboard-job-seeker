@@ -28,6 +28,9 @@ export async function fetcher<JSON = any>(
   return res.json() as Promise<JSON>;
 }
 
-export const dateFormat = (date: Date, format: string = "DD MMM YYYY") => {
+export const dateFormat = (
+  date: Date | undefined,
+  format: string = "DD MMM YYYY"
+) => {
   return moment(date).format(format);
 };

@@ -43,7 +43,7 @@ export default function PostJobPage() {
   const { data: session } = useSession();
   const router = useRouter();
   const { toast } = useToast();
-  const { data, error, isLoading } = useSWR<CategoryJob>(
+  const { data, error, isLoading } = useSWR<CategoryJob[]>(
     "api/job/categories",
     fetcher
   );
