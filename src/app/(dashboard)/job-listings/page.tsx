@@ -8,14 +8,30 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { JOB_LISTINGS_COLUMNS, JOB_LISTINGS_DATA } from "@/constants";
-import jobListingType from "@/types/jobListing";
+import { JOB_LISTINGS_COLUMNS } from "@/constants";
 import { Badge } from "@/components/ui/badge";
 import { FaEye } from "react-icons/fa6";
 import Link from "next/link";
+import { getServerSession } from "next-auth";
+import authOptions from "@/lib/authOptions";
+import prisma from "@/lib/prisma";
+import { Job } from "@prisma/client";
+import { dateFormat } from "@/lib/utils";
+import moment from "moment";
 
 type Props = {};
-export default function JobListings({}: Props) {
+
+export async function getDataJobs() {
+  const session = await getServerSession(authOptions);
+  const jobs = await prisma.job.findMany({
+    where: {
+      companyId: session?.user?.id,
+    },
+  });
+  return jobs;
+}
+export default async function JobListings({}: Props) {
+  const jobs = await getDataJobs();
   return (
     <div>
       <h1 className="text-3xl font-semibold">Job Listings</h1>
@@ -30,14 +46,18 @@ export default function JobListings({}: Props) {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {JOB_LISTINGS_DATA.map((item: jobListingType) => (
+            {jobs.map((item: Job) => (
               <TableRow key={item.id}>
-                <TableCell>{item.role}</TableCell>
+                <TableCell>{item.roles}</TableCell>
                 <TableCell>
-                  <Badge>{item.status}</Badge>
+                  {moment(item.datePosted).isBefore(item.dueDate) ? (
+                    <Badge>Open</Badge>
+                  ) : (
+                    <Badge variant="destructive">Closed</Badge>
+                  )}
                 </TableCell>
-                <TableCell>{item.datePosted}</TableCell>
-                <TableCell>{item.dueDate}</TableCell>
+                <TableCell>{dateFormat(item.datePosted)}</TableCell>
+                <TableCell>{dateFormat(item.dueDate)}</TableCell>
                 <TableCell>
                   <Badge variant={"outline"}>{item.jobType}</Badge>
                 </TableCell>
