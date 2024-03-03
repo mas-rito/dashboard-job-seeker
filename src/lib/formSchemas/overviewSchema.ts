@@ -1,9 +1,7 @@
 import { z } from "zod";
 
 const overviewSchema = z.object({
-  image: z.any().refine((item: any) => item?.name, {
-    message: "Image is required",
-  }),
+  image: z.any().optional(),
   name: z
     .string({ required_error: "Name is required" })
     .min(2, { message: "Name must be at least 2 characters" })

@@ -18,18 +18,16 @@ export const supabaseUploadFile = async (
       upsert: false,
     });
 
-  return { data, error };
+  return { data, error, fileName };
 };
 
 export const supabaseGetFileUrl = async (
   fileName: string,
   bucket: "company" | "applicant"
 ) => {
-  const { data } = supabase.storage
-    .from(bucket)
-    .getPublicUrl("folder/" + fileName);
+  const { data } = supabase.storage.from(bucket).getPublicUrl(fileName);
 
-  return { data };
+  return { publicUrl: data.publicUrl };
 };
 
 export const supabaseDeleteFile = async (
@@ -38,7 +36,7 @@ export const supabaseDeleteFile = async (
 ) => {
   const { error } = await supabase.storage
     .from(bucket)
-    .remove(["folder/" + fileName]);
+    .remove(["public/" + fileName]);
 
   return { error };
 };

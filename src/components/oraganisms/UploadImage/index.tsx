@@ -1,6 +1,7 @@
 // @flow
 import { Button } from "@/components/ui/button";
 import overviewSchema from "@/lib/formSchemas/overviewSchema";
+import { supabaseGetFileUrl } from "@/lib/supabase";
 import Image from "next/image";
 import * as React from "react";
 import { UseFormReturn } from "react-hook-form";
@@ -26,11 +27,25 @@ export default function UploadImage({ form, name }: Props) {
     inputRef.current?.click();
   };
 
+  React.useEffect(() => {
+    async function getImage() {
+      const { publicUrl } = await supabaseGetFileUrl(
+        form.getValues(name),
+        "company"
+      );
+      setPreviewImg(publicUrl);
+    }
+
+    if (form.getValues(name) !== "") {
+      getImage();
+    }
+  }, []);
+
   return (
     <div className="inline-flex items-center gap-8">
       <div>
         <p className="text-muted-foreground mb-4">Upload Image</p>
-        <Button onClick={handleUploadFile}>
+        <Button type="button" onClick={handleUploadFile}>
           <FiUploadCloud className="text-xl" />
         </Button>
       </div>

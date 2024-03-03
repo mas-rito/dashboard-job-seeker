@@ -64,7 +64,7 @@ model CompanyOverView {
   location    String
   employee    String
   industry    String
-  dateFount   DateTime
+  dateFound   DateTime
   techStack   String[]
   description String
   companyId   String?

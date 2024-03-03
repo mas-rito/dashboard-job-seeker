@@ -53,6 +53,14 @@ const InputSkill = ({ form, name, label }: Props) => {
     form.setValue(name, newValue);
   };
 
+  React.useEffect(() => {
+    const val = form.getValues(name);
+
+    if (val && val.length > 0) {
+      setValues(val);
+    }
+  }, [form, name]);
+
   return (
     <FormField
       control={form.control}
