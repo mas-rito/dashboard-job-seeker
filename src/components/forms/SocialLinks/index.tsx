@@ -15,14 +15,58 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-type Props = {};
-export default function SocialLinks({}: Props) {
+import { useSession } from "next-auth/react";
+import { useToast } from "@/components/ui/use-toast";
+import { useRouter } from "next/navigation";
+import { CompanySocialMedia } from "@prisma/client";
+type Props = {
+  detail: CompanySocialMedia | undefined;
+};
+export default function SocialLinks({ detail }: Props) {
+  const { data: session } = useSession();
+  const { toast } = useToast();
+  const router = useRouter();
   const form = useForm<z.infer<typeof socialLinksSchema>>({
     resolver: zodResolver(socialLinksSchema),
+    defaultValues: {
+      facebook: detail?.facebook!!,
+      twitter: detail?.twitter!!,
+      linkedin: detail?.linkedin!!,
+      instagram: detail?.instagram!!,
+      youtube: detail?.youtube!!,
+    },
   });
 
-  const handleSubmit = (data: z.infer<typeof socialLinksSchema>) => {
-    console.log(data);
+  const handleSubmit = async (data: z.infer<typeof socialLinksSchema>) => {
+    try {
+      const body = {
+        ...data,
+        companyId: session?.user?.id,
+      };
+
+      await fetch(`/api/company/social-link`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      });
+
+      router.refresh;
+
+      toast({
+        title: "Success",
+        description: "Social Links added successfully",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Something went wrong, please try again",
+        variant: "destructive",
+      });
+
+      console.log(error);
+    }
   };
   return (
     <Form {...form}>

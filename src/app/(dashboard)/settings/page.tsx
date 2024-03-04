@@ -15,6 +15,7 @@ async function getDetailCompany() {
     },
     include: {
       CompanyOverView: true,
+      CompanySocialMedia: true,
     },
   });
   return company;
@@ -35,7 +36,7 @@ export default async function Settings() {
           <Overview detail={company?.CompanyOverView[0]} />
         </TabsContent>
         <TabsContent value="socialLinks">
-          <SocialLinks />
+          <SocialLinks detail={company?.CompanySocialMedia[0]} />
         </TabsContent>
         <TabsContent value="teams">
           <Teams />

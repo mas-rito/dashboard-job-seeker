@@ -94,7 +94,7 @@ export default function Overview({ detail }: Props) {
         companyId: session?.user?.id,
       };
 
-      await fetcher(`/api/company/overview`, {
+      await fetch(`/api/company/overview`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
